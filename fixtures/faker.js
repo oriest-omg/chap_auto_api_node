@@ -1,4 +1,4 @@
-const  faker  = require('@faker-js/faker');
+const { faker } = require('@faker-js/faker');
 const Commande = require('../models/Commande');
 const LigneCommande = require('../models/LigneCommande');
 const Utilisateur = require("../models/Utilisateur");
