@@ -25,7 +25,8 @@
     "path": "^0.12.7",
     "q": "^1.5.1",
     "save": "^2.5.0",
-    "underscore": "^1.13.4"
+    "underscore": "^1.13.4",
+    "@faker-js/faker": "^7.4.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.4.0",
