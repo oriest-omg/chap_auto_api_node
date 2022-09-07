@@ -55,4 +55,16 @@ async function inscriptionMail() {
     );
   } catch {}
 }
-module.exports = { inscription: inscriptionMail };
+
+async function commandeMail(commande) {
+  try {
+    console.log(commande);
+    contenuMail(
+      "commande",
+      { commande: commande },
+      commande.utilisateur.email,
+      "Commande effectuée avec succès"
+    );
+  } catch {}
+}
+module.exports = { inscription: inscriptionMail,commandeMail : commandeMail};

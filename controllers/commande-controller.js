@@ -1,4 +1,5 @@
 const Commande = require("../models/Commande");
+const mailController = require("../controllers/mail-controller.js");
 
 module.exports = {
   getCommandes(req, res) {
@@ -34,5 +35,24 @@ module.exports = {
       commande.save().then(()=>{
         res.send(commande);
       })
-  }
+  },
+  getCommandeAndSendMail(req,res){
+    const {id} = req.params;
+    Commande.findById(id).populate([
+      {
+        path: "utilisateur",
+        model: "Utilisateur",
+      },
+      {
+        path: "ligneCommande",
+        model: "LigneCommande",
+        populate: {
+          path: "voiture",
+          model: "Voiture",
+        },
+      },
+    ]).then((commande)=>{
+        mailController.commandeMail(commande);
+    })
+}
 };

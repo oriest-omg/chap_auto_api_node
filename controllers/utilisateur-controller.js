@@ -27,6 +27,11 @@ module.exports = {
                   email: utilisateur.email,
                   nom: utilisateur.nom,
                   _id: utilisateur._id,
+                  prenom : utilisateur.prenom,
+                  mobile: utilisateur.mobile,
+                  date_creation : utilisateur.date_creation,
+                  addresse_physique : utilisateur.addresse_physique,
+                  address_livraison : utilisateur.adresse_Livraison
                 },
                 process.env.SECRET,
                 { expiresIn: process.env.EXPIRATION }

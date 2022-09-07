@@ -40,6 +40,7 @@ module.exports = (server) => {
   //Commande
   server.get("/api/commandes", commandeController.getCommandes);
   server.post("/api/commande",commandeController.postCommande);
+  server.get("/api/commande/:id", commandeController.getCommandeAndSendMail);
   //ligneCommande
   server.post("/api/ligneCommande",ligneCommandeController.postLigneCommande);
   //telechargement
