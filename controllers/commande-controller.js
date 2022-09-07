@@ -22,4 +22,17 @@ module.exports = {
         res.send(commandes);
       });
   },
+  postCommande(req,res){
+      const body = req.body;
+      const {code,utilisateur,paiementStatus} = body;
+      const commande = new Commande({
+        code : code,
+        utilisateur: utilisateur,
+        paiementStatus : paiementStatus,
+        totalPrix : 0
+      });
+      commande.save().then(()=>{
+        res.send(commande);
+      })
+  }
 };

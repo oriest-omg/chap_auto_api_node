@@ -2,6 +2,8 @@
 const utilisateurController = require("../controllers/utilisateur-controller");
 const voitureController = require("../controllers/voiture-controller");
 const commandeController = require("../controllers/commande-controller");
+const ligneCommandeController = require("../controllers/ligne-commande-controller");
+
 //Guards
 const authGuard = require("../guards/authGuard");
 //Mail
@@ -37,6 +39,9 @@ module.exports = (server) => {
   server.delete("/api/voiture/:id",voitureController.deleteVoiture);
   //Commande
   server.get("/api/commandes", commandeController.getCommandes);
+  server.post("/api/commande",commandeController.postCommande);
+  //ligneCommande
+  server.post("/api/ligneCommande",ligneCommandeController.postLigneCommande);
   //telechargement
   server.post("/api/telechargement",telechargementController.upload);
 };
