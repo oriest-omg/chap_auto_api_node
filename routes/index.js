@@ -3,7 +3,7 @@ const utilisateurController = require("../controllers/utilisateur-controller");
 const voitureController = require("../controllers/voiture-controller");
 const commandeController = require("../controllers/commande-controller");
 const ligneCommandeController = require("../controllers/ligne-commande-controller");
-
+const marqueController = require("../controllers/marque-controller");
 //Guards
 const authGuard = require("../guards/authGuard");
 //Mail
@@ -31,7 +31,8 @@ module.exports = (server) => {
     authGuard.loginRequired,
     utilisateurController.profile
   );
-
+  //Marque
+  server.get("/api/marques",marqueController.getMarques)
   //Voiture
   server.get("/api/voitures", voitureController.getVoitures);
   server.get("/api/voiture/:id", voitureController.getVoiture);

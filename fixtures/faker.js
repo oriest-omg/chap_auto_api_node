@@ -1,6 +1,7 @@
 const { faker } = require('@faker-js/faker');
 const Commande = require('../models/Commande');
 const LigneCommande = require('../models/LigneCommande');
+const Marque = require('../models/Marque');
 const Utilisateur = require("../models/Utilisateur");
 const Voiture = require('../models/Voiture');
 const flog = console.log;
@@ -8,7 +9,8 @@ const flog = console.log;
 async function fausseDonne()
 {
     await utilisateurFixture();
-    voitureFixture();
+    await marqueFixture();
+    await voitureFixture();
     commandeFixture();
     ligneCommandeFixture();
 }
@@ -56,27 +58,42 @@ async function utilisateurFixture() {
          utilisateur.save();
     }
 }
+async function marqueFixture(){
+    await Marque.deleteMany({});
+    const _marque = ['BMW', 'AUDI', 'DACIA']
+    for (i = 0; i < _marque.length; i++) {
+        const marque = new Marque({
+            _id: _marque[i],
+            image:"logobm.png"
+        });
+        marque.save();
+    }
+}
 async function voitureFixture() {
    await  Voiture.deleteMany({});
     for (i = 0; i <= 10; i++) {
         let modele = '';
         let statut = faker.helpers.arrayElement(['disponible', 'location'])
-        const marque = faker.helpers.arrayElement(['BMW', 'AUDI', 'DACIA'])
-        if (marque == 'BMW') {
+        let marques; 
+        await  Marque.find().then((data)=>{
+            marques = data;
+        }) 
+        const marque = faker.helpers.arrayElement(marques);
+        if (marque._id == 'BMW') {
             modele = faker.helpers.arrayElement(['I3', 'I4', 'I8', 'IX', 'SERIE 6'])
         }
-        if (marque == 'AUDI') {
+        if (marque._id == 'AUDI') {
             modele = faker.helpers.arrayElement(['A1', 'A3', 'A4', 'A5', 'A6'])
         }
-        if (marque == 'DACIA') {
+        if (marque._id == 'DACIA') {
             modele = faker.helpers.arrayElement(['JOGGER', 'DUSTER', 'BIGSTER', 'DOKKER', 'LOGAN'])
         }
-        var couleurs = [];
+        var couleurs = ['0xff000000','0xffffffff','0xffe0d040','0xff2a22a2'];
         var objCouleur = [];
 
         for (c = 0; c <= 3; c++) {
         objCouleur.push({
-                valeur: faker.color.human(),
+                valeur: couleurs[c],
                 quantite: faker.random.numeric(1)
             });
             // couleurs.push(faker.color.human())
@@ -86,7 +103,6 @@ async function voitureFixture() {
         var qte = 0;
         for(qtee of objCouleur)
         {
-            console.log(qtee);
             qte = qte+ parseInt(qtee.quantite);
         }
         const voiture = new Voiture({
@@ -111,7 +127,6 @@ async function commandeFixture(){
     await  Utilisateur.find().then((data)=>{
         utilisateurs = data;
     })
-    console.log(utilisateurs);
 
     for (i = 0; i <= 10; i++) {
     const utilisateur  = faker.helpers.arrayElement(utilisateurs); 
@@ -139,7 +154,6 @@ async function ligneCommandeFixture(){
     await Commande.find().then((data)=>{
         commandes = data;
     })
-    console.log(commandes);
     for(i = 0; i <= 10; i++){
         //créeation de ligne commande
         const voiture  = faker.helpers.arrayElement(voitures); 
@@ -158,7 +172,6 @@ async function ligneCommandeFixture(){
         //mise à jour de commande
         const cmd = faker.helpers.arrayElement(commandes);
         const ligneCommande = await LigneCommande.find({"commande":cmd._id});
-        console.log(ligneCommande);
         //update//
 
         //calcul total commande

@@ -1,10 +1,11 @@
 const mongoose = require('mongoose'); // Erase if already required
+const Schema = mongoose.Schema;
 
 // Declare the Schema of the Mongo model
 var voitureSchema = new mongoose.Schema({
     marque: {
-        type: String,
-        require: true
+        type:Schema.Types.String,
+        ref:'marque'
     },
     modele: {
         type: String,

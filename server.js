@@ -31,8 +31,8 @@ server.listen(process.env.PORT || PORT,async(req, res) => {
 
     console.log("serveur exécuter sur http://localhost:" + PORT)
 
-    // mongoose.connect('mongodb://localhost:27017/chapAuto')
-    mongoose.connect('mongodb+srv://oriesta:azerty77@cluster0.iczkn.mongodb.net/chapAuto?retryWrites=true&w=majority')
+    mongoose.connect('mongodb://localhost:27017/chapAuto')
+    // mongoose.connect('mongodb+srv://oriesta:azerty77@cluster0.iczkn.mongodb.net/chapAuto?retryWrites=true&w=majority')
 
     mongoose.connection
         .once('open', () => console.log('Connexion est établie'))
