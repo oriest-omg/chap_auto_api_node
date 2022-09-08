@@ -8,11 +8,11 @@ const flog = console.log;
 
 async function fausseDonne()
 {
-    await utilisateurFixture();
-    await marqueFixture();
-    await voitureFixture();
-    commandeFixture();
-    ligneCommandeFixture();
+     await marqueFixture();
+     await voitureFixture()
+     await utilisateurFixture();
+     await commandeFixture();
+     ligneCommandeFixture();
 }
 async function utilisateurFixture() {
     await Utilisateur.deleteMany({});
