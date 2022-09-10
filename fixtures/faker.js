@@ -8,10 +8,10 @@ const flog = console.log;
 
 async function fausseDonne()
 {
-     await marqueFixture();
-     await voitureFixture()
-     await utilisateurFixture();
-     await commandeFixture();
+      await utilisateurFixture();
+       marqueFixture();
+       await voitureFixture();
+      commandeFixture();
      ligneCommandeFixture();
 }
 async function utilisateurFixture() {
@@ -188,6 +188,7 @@ async function ligneCommandeFixture(){
         const commandeSave = await Commande.findByIdAndUpdate(filter,update);
         commandeSave.save();
     }
+    flog('succès faker');
 
 }
 module.exports = { 

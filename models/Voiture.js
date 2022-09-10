@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 var voitureSchema = new mongoose.Schema({
     marque: {
         type:Schema.Types.String,
-        ref:'marque'
+        ref:'marque',
+        require:true
     },
     modele: {
         type: String,
