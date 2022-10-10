@@ -10,6 +10,8 @@ const authGuard = require("../guards/authGuard");
 const mailController = require("../controllers/mail-controller.js");
 //uplod
 const telechargementController = require("../controllers/telechargement-controller");
+//notification
+const pushNotificationController = require("../controllers/push-notification-controller");
 module.exports = (server) => {
   //utilisateur
   server.post("/api/connexion", utilisateurController.connexionTutilisateur);
@@ -37,7 +39,7 @@ module.exports = (server) => {
   server.get("/api/voitures", voitureController.getVoitures);
   server.get("/api/voiture/:id", voitureController.getVoiture);
   server.post("/api/voiture",voitureController.postVoiture);
-  server.delete("/api/voiture/:id",voitureController.deleteVoiture);
+  server.delete("/api/voiture-delete/:id",voitureController.deleteVoiture);
   //Commande
   server.get("/api/commandes", commandeController.getCommandes);
   server.post("/api/commande",commandeController.postCommande);
@@ -46,4 +48,8 @@ module.exports = (server) => {
   server.post("/api/ligneCommande",ligneCommandeController.postLigneCommande);
   //telechargement
   server.post("/api/telechargement",telechargementController.upload);
+  //notification
+  // server.get("/api/sendNotification",pushNotificationController.SendNotification);
+  // server.post("/api/sendNotificationToDevice",pushNotificationController.SendNotificationToDevice);
+  server.post("/api/notif",pushNotificationController.sendNotification);
 };
