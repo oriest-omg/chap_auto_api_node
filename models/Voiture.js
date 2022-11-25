@@ -28,7 +28,8 @@ var voitureSchema = new mongoose.Schema({
     carrosseries:[],
     couleurs: [{
         valeur:String,
-        quantite:Number
+        quantite:Number,
+        matricules:[]
     }],
     quantite:Number,
     equipements:[],

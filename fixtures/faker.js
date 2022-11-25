@@ -24,15 +24,28 @@ async function utilisateurFixture() {
     const utilisateur = new Utilisateur({
         nom: "Djelloh",
         prenom: "oriest",
-        email: "ori@gmail.com",
+        email: "oriestdjelloh@gmail.com",
         mobile: "0705020309",
-        mot_de_passe: "1234",
+        mot_de_passe: {
+            hased_password:"1234",
+            reset_code:"aaaa",
+            active:true,
+            reset_in_progress:false,
+            reset_expires:0
+        },
+        verifie:"verifie",
         addresse_physique: {
             ville: "Abidjan",
             commune: commune,
             quartier: quartier,
             rue: "",
-        }
+        },
+        addresse_livraison:{
+            ville: "Abidjan",
+            commune : commune,
+            quartier : quartier,
+            description : String
+        },
     })
      utilisateur.save();
     //fake
@@ -47,13 +60,21 @@ async function utilisateurFixture() {
             prenom: faker.name.lastName(),
             email: faker.internet.email(),
             mobile: faker.phone.number(),
-            mot_de_passe: faker.internet.password(),
+            mot_de_passe: {
+                hased_password:faker.internet.password()
+            },
             addresse_physique: {
                 ville: "Abidjan",
                 commune: commune,
                 quartier: quartier,
                 rue: String,
-            }
+            },
+            addresse_livraison:{
+                ville: "Abidjan",
+                commune : commune,
+                quartier : quartier,
+                description : String
+            },
         })
          utilisateur.save();
     }
@@ -90,11 +111,11 @@ async function voitureFixture() {
         }
         var couleurs = ['0xff000000','0xffffffff','0xffe0d040','0xff2a22a2'];
         var objCouleur = [];
-
         for (c = 0; c <= 3; c++) {
         objCouleur.push({
                 valeur: couleurs[c],
-                quantite: faker.random.numeric(1)
+                quantite: faker.random.numeric(1),
+                matricules:["1","47","95"]
             });
             // couleurs.push(faker.color.human())
         }

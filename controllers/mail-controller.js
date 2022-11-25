@@ -1,6 +1,7 @@
 const ejs = require("ejs");
 const nodemailer = require("nodemailer");
 const Utilisateur = require("../models/Utilisateur");
+require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -67,4 +68,23 @@ async function commandeMail(commande) {
     );
   } catch {}
 }
-module.exports = { inscription: inscriptionMail,commandeMail : commandeMail};
+//Mail pour avoir le code pour changer de mot de passe
+async function mailPourUnNouveauMdp(utilisateur){
+  console.log("Dans mailxxxxxxxx");
+  try {
+    console.log(utilisateur);
+    contenuMail(
+      "codePourChangerMdp",
+      { utilisateur: utilisateur },
+      utilisateur.email,
+      "inscription validée"
+    );
+    // contenuMail(
+    //   "inscription",
+    //   { utilisateur: utilisateur },
+    //   utilisateur.email,
+    //   "Changer votre mot de passe"
+    // );
+  } catch {}
+}
+module.exports = { inscription: inscriptionMail,commandeMail : commandeMail,mailPourUnNouveauMdp:mailPourUnNouveauMdp};

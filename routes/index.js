@@ -12,12 +12,15 @@ const mailController = require("../controllers/mail-controller.js");
 const telechargementController = require("../controllers/telechargement-controller");
 //notification
 const pushNotificationController = require("../controllers/push-notification-controller");
+//sms
+const smsController = require("../controllers/sms-controller");
 module.exports = (server) => {
   //utilisateur
   server.post("/api/connexion", utilisateurController.connexionTutilisateur);
   server.post(
     "/api/inscription",
     utilisateurController.postUtilisateur,
+    smsController.sendSMS,
     mailController.inscription
   );
   server.get("/api/utilisateurs", utilisateurController.getUtilisateurs);
@@ -27,12 +30,17 @@ module.exports = (server) => {
     utilisateurController.deleteUtilisateur
   );
   server.put("/api/utilisateur", utilisateurController.putUtilisateur);
+  //nouveau mdp
+  server.post("/api/nouveauMdp",utilisateurController.putCodeMotDePasseUtilisateur);
+  server.post("/api/changementMotDePasse",utilisateurController.putMotDePasseUtilisateur);
   //test jwt
   server.post(
     "/profile",
     authGuard.loginRequired,
     utilisateurController.profile
   );
+  //verifier code 
+  server.post("/api/verificationMobile",utilisateurController.verifierCode);
   //Marque
   server.get("/api/marques",marqueController.getMarques)
   //Voiture
